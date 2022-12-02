@@ -17,14 +17,17 @@ var _frames_since_jump_input = 0
 var _jump_interrupted = false
 
 onready var _player_body = $AnimatedSprite
+onready var _player_weapon = $Weapon/Sprite
+onready var _weapon_hitbox = $Weapon/Hitbox/Location
 
 func _physics_process(delta):
-	_player_body.flip_h = bool(clamp(- _direction, 0, 1))
-	take_x_input()
 	apply_speed_to_input()
+	set_sprite_direction()
 	move_and_fall()
 	_frames_since_jump_input += 1
 	transition_action_state()
+	if Input.is_action_just_pressed("attack_melee"):
+		print("Attack!")
 
 func take_x_input() -> float:
 	return float(
@@ -41,6 +44,11 @@ func apply_speed_to_input() -> Vector2:
 	else:
 		_velocity.y += GRAVITY
 	return _velocity
+
+func set_sprite_direction():
+	_player_body.flip_h = bool(clamp(- _direction, 0, 1))
+	_player_weapon.flip_h = _player_body.flip_h
+	_weapon_hitbox.position.x = 40 * _direction
 
 func move_and_fall():
 	match state:
