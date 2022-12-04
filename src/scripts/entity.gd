@@ -1,7 +1,7 @@
 class_name EntityBase
 extends KinematicBody2D
 
-enum States { IDLE, FLOOR, AIR, WALL }
+enum States { IDLE, FLOOR, AIR }
 
 const GRAVITY = 26.0
 const TERMINAL_VELOCITY = 600
