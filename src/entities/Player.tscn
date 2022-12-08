@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://src/spriteframes/mounted_player.tres" type="SpriteFrames" id=1]
+[ext_resource path="res://src/scripts/player.gd" type="Script" id=2]
+[ext_resource path="res://assets/entities/cc_lance_blue.png" type="Texture" id=3]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 23.0
+height = 30.0
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 23.5, 34 )
+
+[node name="Player" type="KinematicBody2D"]
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 6.44545 )
+shape = SubResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( -3, -1 )
+frames = ExtResource( 1 )
+animation = "idle"
+
+[node name="Weapon" type="Node2D" parent="."]
+
+[node name="Sprite" type="Sprite" parent="Weapon"]
+texture = ExtResource( 3 )
+
+[node name="Hitbox" type="Area2D" parent="Weapon"]
+
+[node name="Location" type="CollisionShape2D" parent="Weapon/Hitbox"]
+position = Vector2( 40, 0 )
+shape = SubResource( 2 )
