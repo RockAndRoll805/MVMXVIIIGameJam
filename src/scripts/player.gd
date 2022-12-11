@@ -1,6 +1,6 @@
 extends EntityBase
 
-const BUFFER_WINDOW = 30
+const BUFFER_WINDOW = 8
 
 var _frames_in_air: int = 0
 var _frames_since_jump_input: int = BUFFER_WINDOW + 1
@@ -38,9 +38,21 @@ func sprite_direction():
 	_player_weapon.flip_h = _entity_body.flip_h
 	_weapon_offset = clamp(int(left_direction) * 2 - 1, -1, 1)
 	_weapon_hitbox.position.x = 40 * - _weapon_offset
-#
+
+# overwriting apply speed function to add floatiness
+func apply_speed_to_input() -> Vector2:
+	velocity.x = take_x_input()
+	velocity.x *= speed
+	if(velocity.y >= -300
+	and velocity.y <= 300):
+		velocity.y += GRAVITY/4
+	else:
+		velocity.y += GRAVITY
+	return velocity
+
 func move_and_fall():
 	.move_and_fall()
+	print(velocity.y)
 	match state:
 		
 		States.AIR:
@@ -48,6 +60,7 @@ func move_and_fall():
 			
 			if Input.is_action_just_released("jump"):
 				_jump_interrupted = true
+				velocity.y = max(velocity.y, -100.0)
 				# reset buffer window on release so short hops dont get buffered
 				_frames_since_jump_input = BUFFER_WINDOW + 1
 				
@@ -73,8 +86,6 @@ func move_and_fall():
 			_jump_interrupted = false
 			_double_jump_used = false
 			_frames_in_air = 0
-			
-	velocity.y = clamp(velocity.y, jump_force, TERMINAL_VELOCITY) if _jump_interrupted == false else clamp(velocity.y, 0.0, TERMINAL_VELOCITY)
 
 func buffer_jump():
 	if state != States.AIR and _frames_since_jump_input < BUFFER_WINDOW:
