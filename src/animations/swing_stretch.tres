@@ -1,0 +1,18 @@
+[gd_resource type="Animation" format=2]
+
+[resource]
+resource_name = "swing_stretch"
+length = 0.75
+step = 0.025
+tracks/0/type = "value"
+tracks/0/path = NodePath("SwingTrail:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.55, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1, 2 ), Vector2( 1, 1 ) ]
+}

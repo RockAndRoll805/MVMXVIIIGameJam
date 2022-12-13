@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://src/tilesets/world_abyss.tres" type="TileSet" id=1]
 [ext_resource path="res://src/entities/Player.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://src/collectables/GenericUpgrade.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/items/double_jump_alt.png" type="Texture" id=6]
 [ext_resource path="res://src/scripts/upgrade_doublejump.gd" type="Script" id=7]
+[ext_resource path="res://src/entities/BossFrog.tscn" type="PackedScene" id=8]
 
 [node name="Level_0_1" type="Node2D"]
 
@@ -24,6 +25,9 @@ speed = 120.0
 position = Vector2( 751, 349 )
 speed = 120.0
 
+[node name="KinematicBody2D" parent="." instance=ExtResource( 8 )]
+position = Vector2( 632, 418 )
+
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 79, 257 )
 speed = 360.0
@@ -31,6 +35,7 @@ jump_force = -1100
 
 [node name="Camera2D2" type="Camera2D" parent="Player"]
 current = true
+zoom = Vector2( 0.5, 0.5 )
 
 [node name="GameHUD" parent="Player/Camera2D2" instance=ExtResource( 4 )]
 visible = false
