@@ -52,7 +52,6 @@ func apply_speed_to_input() -> Vector2:
 
 func move_and_fall():
 	.move_and_fall()
-	print(velocity.y)
 	match state:
 		
 		States.AIR:
@@ -93,7 +92,6 @@ func buffer_jump():
 		_frames_since_jump_input = 0
 
 func _on_InWorldItem_collected(item_type):
-	print("Item collected!")
 	match item_type:
 		1:
 			_double_jump_able = true
