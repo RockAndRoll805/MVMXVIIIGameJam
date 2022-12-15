@@ -20,6 +20,11 @@ _global_script_classes=[ {
 "path": "res://addons/godot-git-plugin/git_api.gdns"
 }, {
 "base": "Area2D",
+"class": "SceneTransition",
+"language": "GDScript",
+"path": "res://src/scripts/SceneTransition.gd"
+}, {
+"base": "Area2D",
 "class": "UpgradeCollectable",
 "language": "GDScript",
 "path": "res://src/scripts/upgrade_collect.gd"
@@ -27,18 +32,20 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "EntityBase": "",
 "GitAPI": "",
+"SceneTransition": "",
 "UpgradeCollectable": ""
 }
 
 [application]
 
 config/name="MVMXVIIIGameJam"
-run/main_scene="res://src/Main.tscn"
+run/main_scene="res://src/levels/garden/Level_1_1.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
 Events="*res://src/scripts/Events.gd"
+PlayerState="*res://src/scripts/player_state.gd"
 
 [editor]
 
