@@ -5,17 +5,18 @@ const BUFFER_WINDOW = 8
 var _frames_in_air: int = 0
 var _frames_since_jump_input: int = BUFFER_WINDOW + 1
 var _jump_interrupted = false
-var _double_jump_able = false
 var _weapon_offset: int = 1
 var _double_jump_used = false
 
 onready var _player_weapon = $Weapon/Sprite
 onready var _weapon_hitbox = $Weapon/Hitbox/Location
+onready var player_vars = get_node("/root/PlayerState")
 
 func _ready():
 	States["DOUBLE_JUMP"] = 3
 #	States["WALL"] = 4
 	Events.connect("InWorldItem_collected", self, "_on_InWorldItem_collected")
+	global_position = player_vars.scene_entry_position
 
 func _physics_process(delta):
 	add_jump_input()
@@ -72,7 +73,7 @@ func move_and_fall():
 				
 			# double jump
 			elif(Input.is_action_just_pressed("jump")
-			and _double_jump_able
+			and player_vars.double_jump_able
 			and not _double_jump_used):
 				velocity.y = jump_force
 				_double_jump_used = true
@@ -94,6 +95,7 @@ func buffer_jump():
 func _on_InWorldItem_collected(item_type):
 	match item_type:
 		1:
-			_double_jump_able = true
+			player_vars.double_jump_able = true
+			player_vars.scene_entry_position = Vector2(1054.0, 1780.0)
 		_:
 			pass
